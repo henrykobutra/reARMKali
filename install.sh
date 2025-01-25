@@ -72,7 +72,9 @@ sudo pimpmykali/pimpmykali.sh --auto
 
 # Clean up Pimp My Kali
 rm -rf pimpmykali/
-rm pimpmykali.log
+
+# Comment line below
+rm -f pimpmykali.log
 
 # Install Oh My Zsh
 echo "${FMT_BLUE}•${FMT_RESET} Installing Oh My Zsh..."
