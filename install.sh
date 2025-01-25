@@ -7,14 +7,41 @@ FMT_YELLOW='\033[0;33m'
 FMT_BOLD='\033[1m'
 FMT_RESET='\033[0m'
 
+# Pulse spinner with elapsed time
+spinner() {
+  local pid=$1
+  local delay=0.2
+  local start=$(date +%s)
+  while ps -p $pid > /dev/null; do
+    local current=$(date +%s)
+    local elapsed=$((current - start))
+    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[●    ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[    ●]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+  done
+  printf "\r              \r"
+}
+
 # Print initial warning and get confirmation
 print_warning() {
     printf '\n'
-    printf "${FMT_BLUE}"
-    printf '                      \n'
-    printf ' _ _ /\  _ _ |_/ _ |. \n'
-    printf '| (-/--\| |||| \(_||| \n'
-    printf '                      \n'
+    printf '\033[38;5;208m                      \n'
+    printf '\033[38;5;147m _ _ /\  _ _ |_/ _ |. \n'
+    printf '\033[38;5;111m| (-/--\| |||| \(_||| \n'
+    printf '\033[38;5;75m                      \n'
     printf "${FMT_RESET}"
     echo "${FMT_YELLOW}https://github.com/henrykobutra/reARMKali${FMT_RESET}"
     printf '\n'
@@ -79,7 +106,7 @@ echo "${FMT_BLUE}•${FMT_RESET} Installing Oh My Zsh... (3/12)"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1
 
 # Install required packages
-echo "${FMT_BLUE}•${FMT_RESET} Installing required packages... (4/12)"
+echo "${FMT_BLUE}•${FMT_RESET} Installing packages to make your terminal look better... (4/12)"
 sudo apt install -y -qq grc colorize bat tmux curl wget gpg > /dev/null 2>&1
 
 # Install zsh plugins
@@ -107,40 +134,15 @@ sudo rm -f Hack.tar.xz 2>/dev/null
 
 # Install SGPT dependencies
 echo "${FMT_BLUE}•${FMT_RESET} Installing SGPT... (9/12)"
-pipx install shell-gpt > /dev/null 2>&1
+echo "${FMT_YELLOW}   This might take some time...${FMT_RESET}"
+(pipx install shell-gpt > /dev/null 2>&1) &
+spinner $!
 
-# Pulse spinner with elapsed time
-spinner() {
-  local pid=$1
-  local delay=0.2
-  local start=$(date +%s)
-  while ps -p $pid > /dev/null; do
-    local current=$(date +%s)
-    local elapsed=$((current - start))
-    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[●    ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[    ●]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
-    sleep $delay
-  done
-  printf "\r              \r"
-}
 
 # Update the RustScan and Kerbrute installations to use the spinner
 echo "${FMT_BLUE}•${FMT_RESET} Installing RustScan... (10/12)"
 sudo apt install -y -qq cargo > /dev/null 2>&1
-echo "${FMT_YELLOW}   This might take a few minutes...${FMT_RESET}"
+echo "${FMT_YELLOW}   This might also take some time...${FMT_RESET}"
 (cargo install rustscan --quiet) &
 spinner $!
 
@@ -171,11 +173,10 @@ wget -q https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main
 # Print completion message
 print_success() {
   printf '\n'
-  printf "${FMT_BLUE}"
-  printf '                      \n'
-  printf ' _ _ /\  _ _ |_/ _ |. \n'
-  printf '| (-/--\| |||| \(_||| \n'
-  printf '                      \n'
+  printf '\033[38;5;208m                      \n'
+  printf '\033[38;5;147m _ _ /\  _ _ |_/ _ |. \n'
+  printf '\033[38;5;111m| (-/--\| |||| \(_||| \n'
+  printf '\033[38;5;75m                      \n'
   printf "${FMT_RESET}"
   printf '\n'
   echo  "${FMT_BOLD}Next steps:${FMT_RESET}"
@@ -188,6 +189,10 @@ print_success() {
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}kerbrute${FMT_RESET} - Direct access to Kerbrute tool"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}ligolo-proxy${FMT_RESET} - Start the Ligolo-ng proxy"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}rustscan${FMT_RESET} - Fast port scanner written in Rust"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}sgpt${FMT_RESET} - AI-powered terminal assistant"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}eza${FMT_RESET} - Modern replacement for ls (and ll, and la, btw)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}bat${FMT_RESET} - Modern replacement for cat (and cat, and bat, btw)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}tmux${FMT_RESET} - Try nmap btw, ... it'll look nicer too!"
   printf '\n'
   echo  "${FMT_BOLD}Found this useful? Consider:${FMT_RESET}"
   echo  "${FMT_BLUE}•${FMT_RESET} Following the project: https://github.com/henrykobutra/reARMKali"
