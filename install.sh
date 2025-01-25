@@ -52,7 +52,7 @@ print_warning() {
 print_warning
 
 # Start of install
-echo "${FMT_BLUE}•${FMT_RESET} Starting Kali setup script..."
+echo "${FMT_BLUE}•${FMT_RESET} Starting reARMKali setup script..."
 
 # Update system
 echo "${FMT_BLUE}•${FMT_RESET} Updating system packages... (1/12)"
