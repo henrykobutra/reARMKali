@@ -109,17 +109,49 @@ sudo rm -f Hack.tar.xz 2>/dev/null
 echo "${FMT_BLUE}•${FMT_RESET} Installing SGPT... (9/12)"
 pipx install shell-gpt > /dev/null 2>&1
 
-# Install Cargo and RustScan
+# Pulse spinner with elapsed time
+spinner() {
+  local pid=$1
+  local delay=0.2
+  local start=$(date +%s)
+  while ps -p $pid > /dev/null; do
+    local current=$(date +%s)
+    local elapsed=$((current - start))
+    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[●    ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[ ●   ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[  ●  ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[    ●]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+    printf "\r${FMT_BLUE}[   ● ]${FMT_RESET} %02d:%02d " $((elapsed/60)) $((elapsed%60))
+    sleep $delay
+  done
+  printf "\r              \r"
+}
+
+# Update the RustScan and Kerbrute installations to use the spinner
 echo "${FMT_BLUE}•${FMT_RESET} Installing RustScan... (10/12)"
 sudo apt install -y -qq cargo > /dev/null 2>&1
-cargo install rustscan --quiet
+echo "${FMT_YELLOW}   This might take a few minutes...${FMT_RESET}"
+(cargo install rustscan --quiet) &
+spinner $!
 
-# Install Kerbrute
+# For Kerbrute
 echo "${FMT_BLUE}•${FMT_RESET} Installing Kerbrute... (11/12)"
 git clone -q https://github.com/ropnop/kerbrute.git
 cd kerbrute
 sed -i 's/ARCHS=.*/ARCHS=arm64/' Makefile
-make linux > /dev/null 2>&1
+echo "${FMT_YELLOW}   Building Kerbrute...${FMT_RESET}"
+(make linux > /dev/null 2>&1) &
+spinner $!
 sudo mv dist/kerbrute_linux_arm64 /usr/local/bin/kerbrute 2>/dev/null
 cd .. && rm -rf kerbrute 2>/dev/null
 
@@ -135,12 +167,6 @@ cd .. && rm -rf ligolo-temp 2>/dev/null
 echo "${FMT_BLUE}•${FMT_RESET} Finalizing: Updating .zshrc configuration..."
 wget -q https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/dotfiles/.zshrc -O ~/.zshrc
 
-# Define color formatting
-FMT_GREEN='\033[0;32m'
-FMT_BLUE='\033[0;34m'
-FMT_YELLOW='\033[0;33m'
-FMT_BOLD='\033[1m'
-FMT_RESET='\033[0m'
 
 # Print completion message
 print_success() {
