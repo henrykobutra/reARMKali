@@ -30,7 +30,7 @@ rm pimpmyali.log
 
 # Install Oh My Zsh
 echo -e "${GREEN}Installing Oh My Zsh...${NC}"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Install required packages
 echo -e "${GREEN}Installing required packages...${NC}"
@@ -86,7 +86,7 @@ cd .. && rm -rf ligolo-temp
 
 # Brushig up the .zshrc file
 echo -e "${GREEN}Updating .zshrc configuration...${NC}"
-wget 
+wget https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/dotfiles/.zshrc -O ~/.zshrc
 
 echo -e "${BLUE}Installation complete! Please perform these manual steps:${NC}"
 echo -e "${GREEN}1. Open your terminal preferences and change the font to 'Hack Nerd Font Mono'${NC}"
