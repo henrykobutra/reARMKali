@@ -1,0 +1,53 @@
+- Kali Fresh Install
+- Add a wall paper
+- sudo apt update
+- Install Oh My Zsh
+- Customize .zshrc (see dotfiles/.zshrc)
+  - plugins=(git eza zsh-autosuggestions grc sudo colorize zsh-syntax-highlighting tmux)
+  - ZSH_COLORIZE_STYLE="colorful"
+  - ZSH_TMUX_AUTOSTART=true
+- install zsh-autosuggestions
+  - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+- install zsh-syntax-highlighting
+  - git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+- install eza
+  - sudo mkdir -p /etc/apt/keyrings
+  - wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+  - echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+  - sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+  - sudo apt update
+  - sudo apt install -y eza
+- install grc
+  - sudo apt install -y grc
+- install colorize
+  - sudo apt install -y colorize
+- add tmux config file
+  - wget https://raw.githubusercontent.com/Neosprings/dotfiles/refs/heads/main/.tmux.conf
+- install batcat
+  - sudo apt install -y bat
+- Fonts so that icons show up
+  - wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.tar.xz
+  - sudo tar -xf Hack.tar.xz -C /usr/share/fonts 
+  - sudo rm Hack.tar.xz
+  - Change terminal font to Hack Nerd Font Mono and see icons
+- Install SGPT
+  - pipx ensurepath
+  - pipx install shell-gpt
+  - Add your own OpenAI API key
+
+## Now some tools
+- Install Cargo
+- Install RustScan
+  - cargo install rustscan
+  - Make sure add path to .zshrc as instructed
+- Install Kerbrute
+  - git clone https://github.com/ropnop/kerbrute.git && cd kerbrute
+  - Change ARCHS to arm64
+  - make linux
+  - sudo mv dist/kerbrute_linux_arm64 /usr/local/bin/kerbrute
+  - cd .. && rm -rf kerbrute
+- Install Ligolo-ng (in a folder)
+  - wget https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz
+  - tar -xvzf ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz
+  - sudo mv proxy /usr/local/bin/ligolo-proxy
+  - rm -rf the folder
