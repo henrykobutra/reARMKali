@@ -2,7 +2,7 @@
 *M1 MacBook Pro Kali Linux Tailoring for Paranoid Pentesters*
 
 ![Apple Silicon](https://img.shields.io/badge/Silicon-M1/M2/M3_ARM64-red?logo=apple) 
-![Kali](https://img.shields.io/badge/Kali_Linux-2023.4-557C94?logo=kalilinux)
+![Kali](https://img.shields.io/badge/Kali_Linux-2024.4-557C94?logo=kalilinux)
 
 ## Why? 🤬
 **My M1 Pro Pain Points:**
