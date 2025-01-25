@@ -26,7 +26,7 @@ sudo pimpmykali/pimpmykali.sh --auto
 
 # Clean up Pimp My Kali
 rm -rf pimpmykali/
-rm pimpmyali.log
+rm pimpmykali.log
 
 # Install Oh My Zsh
 echo -e "${GREEN}Installing Oh My Zsh...${NC}"
@@ -88,10 +88,34 @@ cd .. && rm -rf ligolo-temp
 echo -e "${GREEN}Updating .zshrc configuration...${NC}"
 wget https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/dotfiles/.zshrc -O ~/.zshrc
 
-echo -e "${BLUE}Installation complete! Please perform these manual steps:${NC}"
-echo -e "${GREEN}1. Open your terminal preferences and change the font to 'Hack Nerd Font Mono'${NC}"
-echo -e "${GREEN}2. Configure your OpenAI API key for SGPT using: sgpt --api-key 'your-key-here'${NC}"
-echo -e "${GREEN}3. Log out and log back in, or restart your terminal for all changes to take effect${NC}"
+# Define color formatting
+FMT_GREEN='\033[0;32m'
+FMT_BLUE='\033[0;34m'
+FMT_YELLOW='\033[0;33m'
+FMT_BOLD='\033[1m'
+FMT_RESET='\033[0m'
 
-# Reminder about wallpaper
-echo -e "${GREEN}Don't forget to set your preferred wallpaper!${NC}"
+# Print completion message
+print_success() {
+  printf '\n'
+  printf "${FMT_BLUE}"
+  printf '                      \n'
+  printf ' _ _ /\  _ _ |_/ _ |. \n'
+  printf '| (-/--\| |||| \(_||| \n'
+  printf '                      \n'
+  printf "${FMT_RESET}"
+  printf '\n'
+  echo  "${FMT_BOLD}Next steps:${FMT_RESET}"
+  echo  "${FMT_BLUE}•${FMT_RESET} Restart your VM to apply all changes"
+  echo  "${FMT_BLUE}•${FMT_RESET} If using SGPT, have your OpenAI API key ready"
+  echo  "${FMT_BLUE}•${FMT_RESET} Check out the ${FMT_YELLOW}.zshrc${FMT_RESET} file for further customization"
+  echo  "${FMT_BLUE}•${FMT_RESET} Change the terminal font to ${FMT_YELLOW}Hack Nerd Font Mono${FMT_RESET} for better icon support"
+  printf '\n'
+  echo  "${FMT_BOLD}Found this useful? Consider:${FMT_RESET}"
+  echo  "${FMT_BLUE}•${FMT_RESET} Following the project: https://github.com/henrykobutra/reARMKali"
+  echo  "${FMT_BLUE}•${FMT_RESET} Reporting issues or contributing to the project"
+  printf '\n'
+}
+
+# Call the success message
+print_success
