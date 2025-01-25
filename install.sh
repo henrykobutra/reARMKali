@@ -191,8 +191,9 @@ print_success() {
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}rustscan${FMT_RESET} - Fast port scanner written in Rust"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}sgpt${FMT_RESET} - AI-powered terminal assistant"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}eza${FMT_RESET} - Modern replacement for ls (and ll, and la, btw)"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}bat${FMT_RESET} - Modern replacement for cat (and cat, and bat, btw)"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}tmux${FMT_RESET} - Try nmap btw, ... it'll look nicer too!"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}bat${FMT_RESET} - Modern replacement for cat (try running cat on a file ...)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}nmap with colors${FMT_RESET} - Try nmap btw, ... it'll look nicer too!"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}tmux${FMT_RESET} - tmux will now auto start (check .tmux.conf for custom keybinds (ctrl+a) or disable it in .zshrc)"
   printf '\n'
   echo  "${FMT_BOLD}Found this useful? Consider:${FMT_RESET}"
   echo  "${FMT_BLUE}•${FMT_RESET} Following the project: https://github.com/henrykobutra/reARMKali"
