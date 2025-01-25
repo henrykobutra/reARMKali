@@ -106,6 +106,10 @@ sudo pimpmykali/pimpmykali.sh --auto
 rm -rf pimpmykali/ 2>/dev/null
 rm -f pimpmykali.log 2>/dev/null
 
+echo "${FMT_BLUE}•${FMT_RESET} I hope PimpMyKali didn't take too long"
+printf '\n'
+echo "${FMT_BLUE}•${FMT_RESET} Continuing ..."
+printf '\n'
 # Install Oh My Zsh
 echo "${FMT_BLUE}•${FMT_RESET} Installing Oh My Zsh... (3/12)"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1
@@ -194,11 +198,11 @@ print_success() {
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}kerbrute${FMT_RESET} - Direct access to Kerbrute tool"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}ligolo-proxy${FMT_RESET} - Start the Ligolo-ng proxy"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}rustscan${FMT_RESET} - Fast port scanner written in Rust"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}sgpt${FMT_RESET} - AI-powered terminal assistant"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}eza${FMT_RESET} - Modern replacement for ls (and ll, and la, btw)"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}bat${FMT_RESET} - Modern replacement for cat (try running cat on a file ...)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}sgpt${FMT_RESET} - AI-powered terminal assistant (try running ${FMT_YELLOW}sgpt${FMT_RESET} \"Hi mom\")"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}eza${FMT_RESET} - Modern replacement for ls (try running ${FMT_YELLOW}ls${FMT_RESET}, ${FMT_YELLOW}ll${FMT_RESET}, and ${FMT_YELLOW}la${FMT_RESET}, btw)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}bat${FMT_RESET} - Modern replacement for cat (try running ${FMT_YELLOW}cat${FMT_RESET} on a file ...)"
   echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}nmap with colors${FMT_RESET} - Try nmap btw, ... it'll look nicer too!"
-  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}tmux${FMT_RESET} - tmux will now auto start (check .tmux.conf for custom keybinds (ctrl+a) or disable it in .zshrc)"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}tmux${FMT_RESET} - tmux will now auto start (check ${FMT_YELLOW}~/.tmux.conf${FMT_RESET} for custom keybinds (ctrl+a) or disable it in ${FMT_YELLOW}~/.zshrc${FMT_RESET})"
   printf '\n'
   echo  "${FMT_BOLD}Found this useful? Consider:${FMT_RESET}"
   echo  "${FMT_BLUE}•${FMT_RESET} Following the project: https://github.com/henrykobutra/reARMKali"
