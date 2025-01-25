@@ -54,6 +54,11 @@ print_warning() {
     echo "${FMT_BLUE}•${FMT_RESET} Kali Linux 2024.4"
     echo "${FMT_BLUE}•${FMT_RESET} MacBook Pro with M1 Pro"
     printf '\n'
+    echo "${FMT_BOLD}Important Notes:${FMT_RESET}"
+    echo "${FMT_BLUE}•${FMT_RESET} Tmux will be configured with custom keybinds - familiarity with tmux recommended"
+    echo "${FMT_BLUE}•${FMT_RESET} Check .tmux.conf after install or disable tmux in .zshrc if preferred"
+    echo "${FMT_BLUE}•${FMT_RESET} Shell-GPT (sgpt) requires an OpenAI API key to function"
+    printf '\n'
     echo "${FMT_BOLD}This script will:${FMT_RESET}"
     echo "${FMT_BLUE}•${FMT_RESET} Update system packages"
     echo "${FMT_BLUE}•${FMT_RESET} Install and configure Pimp My Kali"
