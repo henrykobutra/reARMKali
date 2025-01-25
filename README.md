@@ -51,6 +51,14 @@ ReARMKali transforms your vanilla Kali Linux VM into a fully-equipped pentesting
 - Fresh Kali Linux 2024.4 installation recommended
 - Internet connection for package downloads
 
+⚠️ **tmux Note**: 
+- This setup includes tmux by default for enhanced terminal productivity
+- If you're not familiar with tmux, you have two options:
+  1. Learn tmux (recommended): Check out [tmux cheatsheet](https://tmuxcheatsheet.com)
+  2. Disable tmux: Edit `.zshrc` to:
+     - Remove `tmux` from the plugins list
+     - Remove or comment out the `ZSH_TMUX_AUTOSTART=true` line
+
 ## Quick Install 🚀
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/install.sh)"
