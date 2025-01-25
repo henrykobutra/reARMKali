@@ -55,86 +55,85 @@ print_warning
 echo "${FMT_BLUE}•${FMT_RESET} Starting Kali setup script..."
 
 # Update system
-echo "${FMT_BLUE}•${FMT_RESET} Updating system packages..."
-sudo apt update
+echo "${FMT_BLUE}•${FMT_RESET} Updating system packages... (1/12)"
+sudo apt update -q > /dev/null 2>&1
 
 # Pimp My Kali https://github.com/Dewalt-arch/pimpmykali
-
+echo "${FMT_BLUE}•${FMT_RESET} Setting up Pimp My Kali... (2/12)"
+echo "${FMT_YELLOW}Note: This step requires user interaction and may take a few minutes${FMT_RESET}"
 # Remove existing pimpmykali folder
-rm -rf pimpmykali/
+rm -rf pimpmykali/ 2>/dev/null
 
 # Clone pimpmykali repository & enter the folder
-git clone https://github.com/Dewalt-arch/pimpmykali
+git clone -q https://github.com/Dewalt-arch/pimpmykali
 
-# Execute the script - For a new Kali VM, run menu option 'N'
-# (The script must be run with root privileges)
+# Execute the script - keeping stdout for user interaction
 sudo pimpmykali/pimpmykali.sh --auto
 
 # Clean up Pimp My Kali
-rm -rf pimpmykali/
-
-# Comment line below
-rm -f pimpmykali.log
+rm -rf pimpmykali/ 2>/dev/null
+rm -f pimpmykali.log 2>/dev/null
 
 # Install Oh My Zsh
-echo "${FMT_BLUE}•${FMT_RESET} Installing Oh My Zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+echo "${FMT_BLUE}•${FMT_RESET} Installing Oh My Zsh... (3/12)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1
 
 # Install required packages
-echo "${FMT_BLUE}•${FMT_RESET} Installing required packages..."
-sudo apt install -y grc colorize bat tmux curl wget gpg
+echo "${FMT_BLUE}•${FMT_RESET} Installing required packages... (4/12)"
+sudo apt install -y -qq grc colorize bat tmux curl wget gpg > /dev/null 2>&1
 
 # Install zsh plugins
-echo "${FMT_BLUE}•${FMT_RESET} Installing Zsh plugins..."
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+echo "${FMT_BLUE}•${FMT_RESET} Installing Zsh plugins... (5/12)"
+git clone -q https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone -q https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # Install eza
-echo "${FMT_BLUE}•${FMT_RESET} Installing eza..."
-sudo mkdir -p /etc/apt/keyrings
-wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+echo "${FMT_BLUE}•${FMT_RESET} Installing eza... (6/12)"
+sudo mkdir -p /etc/apt/keyrings 2>/dev/null
+wget -q -O- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg > /dev/null 2>&1
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list > /dev/null
 sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-sudo apt install -y eza
+sudo apt install -y -qq eza > /dev/null 2>&1
 
 # Download tmux config
-echo "${FMT_BLUE}•${FMT_RESET} Downloading tmux config..."
-wget https://raw.githubusercontent.com/Neosprings/dotfiles/refs/heads/main/.tmux.conf -O ~/.tmux.conf
+echo "${FMT_BLUE}•${FMT_RESET} Setting up tmux... (7/12)"
+wget -q https://raw.githubusercontent.com/Neosprings/dotfiles/refs/heads/main/.tmux.conf -O ~/.tmux.conf
 
 # Install Nerd Fonts
-echo "${FMT_BLUE}•${FMT_RESET} Installing Hack Nerd Font..."
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.tar.xz
-sudo tar -xf Hack.tar.xz -C /usr/share/fonts 
-sudo rm Hack.tar.xz
+echo "${FMT_BLUE}•${FMT_RESET} Installing Hack Nerd Font... (8/12)"
+wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.tar.xz
+sudo tar -xf Hack.tar.xz -C /usr/share/fonts 2>/dev/null
+sudo rm -f Hack.tar.xz 2>/dev/null
 
 # Install SGPT dependencies
-echo "${FMT_BLUE}•${FMT_RESET} Installing SGPT..."
-pipx install shell-gpt
+echo "${FMT_BLUE}•${FMT_RESET} Installing SGPT... (9/12)"
+pipx install shell-gpt > /dev/null 2>&1
 
 # Install Cargo and RustScan
-sudo apt install -y cargo
-cargo install rustscan
+echo "${FMT_BLUE}•${FMT_RESET} Installing RustScan... (10/12)"
+sudo apt install -y -qq cargo > /dev/null 2>&1
+cargo install rustscan --quiet
 
 # Install Kerbrute
-echo "${FMT_BLUE}•${FMT_RESET} Installing Kerbrute..."
-git clone https://github.com/ropnop/kerbrute.git
+echo "${FMT_BLUE}•${FMT_RESET} Installing Kerbrute... (11/12)"
+git clone -q https://github.com/ropnop/kerbrute.git
 cd kerbrute
 sed -i 's/ARCHS=.*/ARCHS=arm64/' Makefile
-make linux
-sudo mv dist/kerbrute_linux_arm64 /usr/local/bin/kerbrute
-cd .. && rm -rf kerbrute
+make linux > /dev/null 2>&1
+sudo mv dist/kerbrute_linux_arm64 /usr/local/bin/kerbrute 2>/dev/null
+cd .. && rm -rf kerbrute 2>/dev/null
 
 # Install Ligolo-ng
-echo "${FMT_BLUE}•${FMT_RESET} Installing Ligolo-ng..."
+echo "${FMT_BLUE}•${FMT_RESET} Installing Ligolo-ng... (12/12)"
 mkdir ligolo-temp && cd ligolo-temp
-wget https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz
-tar -xvzf ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz
-sudo mv proxy /usr/local/bin/ligolo-proxy
-cd .. && rm -rf ligolo-temp
+wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.7.5/ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz
+tar -xf ligolo-ng_proxy_0.7.5_linux_arm64.tar.gz 2>/dev/null
+sudo mv proxy /usr/local/bin/ligolo-proxy 2>/dev/null
+cd .. && rm -rf ligolo-temp 2>/dev/null
 
-# Brushig up the .zshrc file
-echo "${FMT_BLUE}•${FMT_RESET} Updating .zshrc configuration..."
-wget https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/dotfiles/.zshrc -O ~/.zshrc
+# Brushing up the .zshrc file
+echo "${FMT_BLUE}•${FMT_RESET} Finalizing: Updating .zshrc configuration..."
+wget -q https://raw.githubusercontent.com/henrykobutra/reARMKali/refs/heads/main/dotfiles/.zshrc -O ~/.zshrc
 
 # Define color formatting
 FMT_GREEN='\033[0;32m'
@@ -158,6 +157,11 @@ print_success() {
   echo  "${FMT_BLUE}•${FMT_RESET} If using SGPT, have your OpenAI API key ready"
   echo  "${FMT_BLUE}•${FMT_RESET} Check out the ${FMT_YELLOW}.zshrc${FMT_RESET} file for further customization"
   echo  "${FMT_BLUE}•${FMT_RESET} Change the terminal font to ${FMT_YELLOW}Hack Nerd Font Mono${FMT_RESET} for better icon support"
+  printf '\n'
+  echo  "${FMT_BOLD}After restart, you can use:${FMT_RESET}"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}kerbrute${FMT_RESET} - Direct access to Kerbrute tool"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}ligolo-proxy${FMT_RESET} - Start the Ligolo-ng proxy"
+  echo  "${FMT_BLUE}•${FMT_RESET} ${FMT_YELLOW}rustscan${FMT_RESET} - Fast port scanner written in Rust"
   printf '\n'
   echo  "${FMT_BOLD}Found this useful? Consider:${FMT_RESET}"
   echo  "${FMT_BLUE}•${FMT_RESET} Following the project: https://github.com/henrykobutra/reARMKali"
